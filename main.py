@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 fashion_mnist = keras.datasets.fashion_mnist
 (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
 
-print(type(train_images))
 
 class_names = [
 	'T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
@@ -44,7 +43,7 @@ model.compile(
 	loss='sparse_categorical_crossentropy',
 	metrics = ['accuracy'])
 
-# model.fit(train_images, train_labels, epochs = 10)
+model.fit(train_images, train_labels, epochs = 10)
 
 
 predictions = model.predict(test_images)
@@ -83,65 +82,17 @@ def plot_value_array(i, predictions_array,true_label):
 	thisplot[true_label].set_color('blue')
 
 
-# num_rows = 5
-# num_cols = 3
-# num_images = num_rows * num_cols
-# plt.figure(figsize=(2*2*num_cols, 2*num_rows))
-# for i in range(num_images):
-# 	plt.subplot(num_rows, 2*num_cols, 2*i+1)
-# 	plot_image(i,predictions, test_labels,test_images)
-# 	plt.subplot(num_rows,2 * num_cols, 2*i+2)
-# 	plot_value_array(i,predictions, test_labels)
-# plt.show()
+num_rows = 5
+num_cols = 3
+num_images = num_rows * num_cols
+plt.figure(figsize=(2*2*num_cols, 2*num_rows))
+for i in range(num_images):
+	plt.subplot(num_rows, 2*num_cols, 2*i+1)
+	plot_image(i,predictions, test_labels,test_images)
+	plt.subplot(num_rows,2 * num_cols, 2*i+2)
+	plot_value_array(i,predictions, test_labels)
+plt.show()
 
-img = test_images[0]
-img = (np.expand_dims(img,0))
-
-# print(img.shape)
-
-predictions_single = model.predict(img)
-# print(predictions_single)
-
-plot_value_array(0, predictions_single, test_labels)
-_ = plt.xticks(range(10), class_names, rotation = 45)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# i = 12
-# plt.figure(figsize=(6,3))
-# plt.subplot(1,2,1)
-# plot_image(i,predictions, test_labels,test_images)
-# plt.subplot(1,2,2)
-# plot_value_array(i,predictions, test_labels)
-# plt.show()
-
-
-
-# test_loss, test_acc = model.evaluate(test_images, test_labels, verbose = 2)
-# print("\nТочность на проверочных данных: ", test_acc)
 
 
 
